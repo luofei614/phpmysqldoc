@@ -1,4 +1,13 @@
 # Example  
+#### a table in database named tablefortest
+    --  DROP TABLE IF EXISTS `tablefortest`;
+    CREATE TABLE `tablefortest` (
+      `test1` varchar(8) COMMENT 'comment1',
+      `test2` char(8) COMMENT 'comment12',
+      `test3` varchar(8) COMMENT 'comment13',
+      `test4` varchar(8) COMMENT 'comment14'
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='just for test~';
+#### php code
     require 'phpmysqldoc.php';
 	
     $host = '';
@@ -12,11 +21,12 @@
     $text = pmd_generateDoc($mysqli, $database);
     writeToFile($text,'test.md');
 
+	
 file://test.md   
 ![内容截图](screenshot.png)
 
 
-It look like this:  
+It looks like this:  
 - - -
 @instruction 你需要能够直视Markdown的浏览器，推荐用Chrome的扩展Markdown Reader（带目录功能）  
 @author php script wrote by Cupen&lt;Cupenoruler@foxmail.com&gt;  
