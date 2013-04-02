@@ -1,5 +1,6 @@
 <script>
-	//location.href = location.href.replace();
+	// var path = '';
+	//location.href = location.href.replace(path);
 </script>
 <?php
 define ( '_ROOT_PATH', dirname ( __FILE__ ) . '/../' );
