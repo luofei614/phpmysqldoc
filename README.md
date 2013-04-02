@@ -1,26 +1,31 @@
 # Example  
-#### a table in database named tablefortest
-    --  DROP TABLE IF EXISTS `tablefortest`;
-    CREATE TABLE `tablefortest` (
-      `test1` varchar(8) COMMENT 'comment1',
-      `test2` char(8) COMMENT 'comment12',
-      `test3` varchar(8) COMMENT 'comment13',
-      `test4` varchar(8) COMMENT 'comment14'
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='just for test~';
-#### php code
-    require 'phpmysqldoc.php';
-	
-    $host = '';
-    $port = '';
-    $user = '';
-    $password = '';
-    $database = 'test';
-    // or $database = array('test','test2');
+#### a table in database named tablefortest  
+```sql  
+--  DROP TABLE IF EXISTS `tablefortest`;
+CREATE TABLE `tablefortest` (
+  `test1` varchar(8) COMMENT 'comment1',
+  `test2` char(8) COMMENT 'comment12',
+  `test3` varchar(8) COMMENT 'comment13',
+  `test4` varchar(8) COMMENT 'comment14'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='just for test~';
+```  
 
-    $mysqli = pmd_getMysqli($host, $port, $user,  $password);
-    $text = pmd_generateDoc($mysqli, $database);
-    writeToFile($text,'test.md');
+#### php code  
 
+```php  
+require 'phpmysqldoc.php';
+
+$host = '';
+$port = '';
+$user = '';
+$password = '';
+$database = 'test';
+// or $database = array('test','test2');
+
+$mysqli = pmd_getMysqli($host, $port, $user,  $password);
+$text = pmd_generateDoc($mysqli, $database);
+writeToFile($text,'test.md');
+```  
 	
 file://test.md   
 ![内容截图](screenshot.png)
