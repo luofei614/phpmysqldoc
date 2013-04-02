@@ -1,6 +1,5 @@
 # Example  
 #### a table in database named tablefortest  
-<code>
 ```sql  
 --  DROP TABLE IF EXISTS `tablefortest`;
 CREATE TABLE `tablefortest` (
@@ -10,7 +9,6 @@ CREATE TABLE `tablefortest` (
   `test4` varchar(8) COMMENT 'comment14'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='just for test~';
 ```  
-</code>
 
 #### php code  
 
