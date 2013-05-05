@@ -3,7 +3,7 @@
 /**
  * 生成数据库文档，
  * @param Mysqli $mysqli
- * @param String/Aarry $dbName 数据库实例的名字（也可以是一个元素为数据库实例名的数组）。
+ * @param String/Array<String> $dbName 数据库实例的名
  */
 function pmd_generateDoc($mysqli, $dbName) {
 	$info = '你需要能够直视Markdown的浏览器，推荐用Chrome的扩展Markdown Reader（带目录功能）';
@@ -34,12 +34,12 @@ function pmd_generateDocHead($instr, $author, $dateStr) {
  */
 function pmd_generateDocBody($mysqli, $dbName) {
 	$strBuilder = '';
-	if(is_array($dbName)){
-		foreach ($dbName as $tmpDbName) {
-			$strBuilder .= pmd_generateMdByDatabase($mysqli, $tmpDbName );
-		}
-	} else {
-		$strBuilder .= pmd_generateMdByDatabase($mysqli, $dbName );
+	if(!is_array($dbName)){
+		$dbName = array($dbName);
+	}
+	// working
+	foreach ($dbName as $tmpDbName) {
+		$strBuilder .= pmd_generateMdByDatabase($mysqli, $tmpDbName );
 	}
 	return $strBuilder;
 }
@@ -51,7 +51,7 @@ function pmd_generateMdByDatabase($mysqli, $dbName ){
 	$strBuilder = markdownLine("# ".$dbName);
 	$tablesInfoArr = pmd_getTableInfo($mysqli, $dbName);
 	foreach ($tablesInfoArr as $tabName => $tabComment) {
-		$tabComment = $tabComment ? $tabComment : '作者没写注释';
+		$tabComment = $tabComment ? $tabComment : 'havn\'t comment';
 		$strBuilder .= markdownLine("## $tabName -- $tabComment",true );
 
 		$fieldInfoArr = pmd_getFieldsInfo($mysqli, $dbName, $tabName);
@@ -123,6 +123,14 @@ function pmd_getFieldsInfo($mysqli, $dbName, $tabName) {
 function pmd_formatFieldInfoAsHTML($fieldInfoArr){
 	$strBuilder = '<table>';
 	foreach ($fieldInfoArr as $tmpfieldInfo) {
+		$tmpfieldInfo->Comment = htmlentities($tmpfieldInfo->Comment);
+		$tmpfieldInfo->Comment = str_replace("\n", "<br/>", $tmpfieldInfo->Comment);
+		$tmpfieldInfo->Comment = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;", $tmpfieldInfo->Comment);
+		$tmpfieldInfo->Comment = str_replace(" ", "&nbsp;", $tmpfieldInfo->Comment);
+		
+		// echo $tmpfieldInfo->Comment."\n<br/>";
+		// $tmpfieldInfo->Comment = "<code>$tmpfieldInfo->Comment<code/>";
+		// 
 		$formatStr = "<tr>";
 		$formatStr .= sprintf("<td>%s</td> <td>%s</td> <td>%s</td>",$tmpfieldInfo->Name, $tmpfieldInfo->Type, $tmpfieldInfo->Comment);
 		$formatStr .= "</tr>";
